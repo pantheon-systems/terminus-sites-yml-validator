@@ -10,8 +10,8 @@
   terminus --version
 }
 
-@test "get help on auth:hello command" {
-  run terminus help auth:hello
-  [[ $output == *"Say hello"* ]]
+@test "get help on validate:sites command" {
+  run terminus help validate:sites
+  [[ $output == *"Validate a sites.yml file."* ]]
   [ "$status" -eq 0 ]
 }

@@ -4,7 +4,7 @@
     "type": "terminus-plugin",
     "license": "MIT",
     "autoload": {
-        "psr-4": { "Pantheon\\TerminusHello\\": "src" }
+        "psr-4": { "Pantheon\\TerminusYmlValidator\\": "src" }
     },
     "require-dev": {
         "phpunit/phpunit": "^9",
@@ -16,8 +16,8 @@
         "cbf": "phpcbf --standard=PSR2 -n src",
         "lint": "find src -name '*.php' -print0 | xargs -0 -n1 php -l",
         "unit": "phpunit --colors=always tests",
-        "functional": "TERMINUS_PLUGINS_DIR=.. PATH=tools/bin:$PATH bats -p -t tests/functional",
-        "install-bats": "if [ ! -f tools/bin/bats ] ; then git clone https://github.com/sstephenson/bats.git tools/bats; tools/bats/install.sh tools; fi",
+        "functional": "TERMINUS_PLUGINS_DIR=.. PATH=tools/bin:$PATH bats --verbose-run -p -t tests/functional",
+        "install-bats": "if [ ! -f tools/bin/bats ] ; then git clone https://github.com/bats-core/bats-core.git tools/bats; tools/bats/install.sh tools; fi",
         "install-tools": [
             "@install-bats"
         ],
