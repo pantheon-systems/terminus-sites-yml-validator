@@ -1,5 +1,5 @@
 {
-    "name": "terminus-yml-validator-plugin",
+    "name": "pantheon-systems/terminus-yml-validator",
     "description": "An example Terminus command",
     "type": "terminus-plugin",
     "license": "MIT",
