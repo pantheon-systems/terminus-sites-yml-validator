@@ -34,7 +34,7 @@ jobs:
       matrix:
         php-versions: ['7.4', '8.2']
     container:
-      mage: pantheonpublic/terminus-plugin-test:4.x-php${{ matrix.php-versions }}
+      image: pantheonpublic/terminus-plugin-test:4.x-php${{ matrix.php-versions }}
     name: Functional Tests
     steps:
       - name: checkout
