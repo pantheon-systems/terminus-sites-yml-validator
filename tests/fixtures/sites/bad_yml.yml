@@ -1,0 +1,5 @@
+---
+api_version: 1
+domain_maps:
+    dev:
+  1: dev-mysite.pantheonsite.io
