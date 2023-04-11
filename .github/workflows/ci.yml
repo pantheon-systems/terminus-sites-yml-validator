@@ -10,13 +10,13 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: Composer Install
-        uses: composer install
+        run: composer install
       - name: Lint
-        uses: composer lint
+        run: composer lint
       - name: Unit
-        uses: composer unit
+        run: composer unit
       - name: CS
-        uses: composer cs
+        run: composer cs
   phpcompatibility:
     runs-on: ubuntu-latest
     name: PHP Compatibility
@@ -39,11 +39,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: Set up environment
-        uses: ./.circleci/set-up-globals.sh
       - name: Check Terminus version
-        uses: terminus --version
+        run: terminus --version
       - name: Install plugin
-        uses: terminus self:plugin:install /home/tester/work/terminus_plugin/
+        run: terminus self:plugin:install /home/tester/work/terminus_plugin/
       - name: Functional
-        uses: composer functional
+        run: composer functional
