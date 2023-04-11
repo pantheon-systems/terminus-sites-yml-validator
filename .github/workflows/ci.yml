@@ -3,6 +3,20 @@ on:
   push:
 
 jobs:
+  lint-test: 
+    runs-on: ubuntu-latest
+    name: Lint and Test
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Composer Install
+        uses: composer install
+      - name: Lint
+        uses: composer lint
+      - name: Unit
+        uses: composer unit
+      - name: CS
+        uses: composer cs
   phpcompatibility:
     runs-on: ubuntu-latest
     name: PHP Compatibility
@@ -13,3 +27,23 @@ jobs:
         uses: pantheon-systems/phpcompatibility-action@dev
         with:
           test-versions: 8.0-
+  functional-test:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        php-versions: ['7.4', '8.2']
+    container:
+      mage: pantheonpublic/terminus-plugin-test:4.x-php${{ matrix.php-versions }}
+    name: Functional Tests
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Set up environment
+        uses: ./.circleci/set-up-globals.sh
+      - name: Check Terminus version
+        uses: terminus --version
+      - name: Install plugin
+        uses: terminus self:plugin:install /home/tester/work/terminus_plugin/
+      - name: Functional
+        uses: composer functional
