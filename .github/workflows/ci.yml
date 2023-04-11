@@ -1,4 +1,4 @@
-name: PHP Compatibility
+name: Testing
 on:
   push:
 
@@ -8,7 +8,12 @@ jobs:
     name: Lint and Test
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      - name: Save repo content as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: full-workspace
+          path: ${{ github.workspace }}
       - name: Composer Install
         run: composer install
       - name: Lint
@@ -17,17 +22,12 @@ jobs:
         run: composer unit
       - name: CS
         run: composer cs
-      - name: Save repo content as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: full-workspace
-          path: ${{ github.workspace }}
   phpcompatibility:
     runs-on: ubuntu-latest
     name: PHP Compatibility
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: PHPCompatibility
         uses: pantheon-systems/phpcompatibility-action@dev
         with:
