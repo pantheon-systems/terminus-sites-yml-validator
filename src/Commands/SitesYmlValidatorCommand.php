@@ -4,6 +4,8 @@ namespace Pantheon\TerminusYmlValidator\Commands;
 
 use Pantheon\Terminus\Commands\TerminusCommand;
 
+// use Pantheon\TerminusYmlValidator\Validator\Sites;
+
 class SitesYmlValidatorCommand extends TerminusCommand
 {
     /**
