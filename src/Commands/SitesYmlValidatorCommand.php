@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pantheon\TerminusYmlValidator\Commands;
 
 use Pantheon\Terminus\Commands\TerminusCommand;
-
-// use Pantheon\TerminusYmlValidator\Validator\Sites;
+use Pantheon\TerminusYmlValidator\Validator\SitesValidator;
 
 class SitesYmlValidatorCommand extends TerminusCommand
 {
@@ -16,16 +17,10 @@ class SitesYmlValidatorCommand extends TerminusCommand
      * @usage <file_path> Validates that the yml file at <file_path> matches a valid sites.yml schema.
      * @aliases validate-sites
      */
-    public function validateSites($file)
+    public function validateSites(string $file): void
     {
-        if (!file_exists($file)) {
-            throw new TerminusException(
-                'The file {file} cannot be accessed by Terminus.',
-                ['file' => $file,],
-                1
-            );
-        }
-
+        $v = new SitesValidator();
+        $v->ValidateFromFilePath($file);
         $this->log()->notice("$file is valid!");
     }
 }
