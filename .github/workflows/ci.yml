@@ -3,7 +3,7 @@ on:
   push:
 
 jobs:
-  lint-test: 
+  lint-test-save: 
     runs-on: ubuntu-latest
     name: Lint and Test
     steps:
@@ -17,6 +17,11 @@ jobs:
         run: composer unit
       - name: CS
         run: composer cs
+      - name: Save repo content as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: full-workspace
+          path: ${{ github.workspace }}
   phpcompatibility:
     runs-on: ubuntu-latest
     name: PHP Compatibility
@@ -28,6 +33,8 @@ jobs:
         with:
           test-versions: 8.0-
   functional-test:
+    needs:
+      - lint-test-save
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
@@ -37,8 +44,10 @@ jobs:
       image: pantheonpublic/terminus-plugin-test:4.x-php${{ matrix.php-versions }}
     name: Functional Tests
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
+      - name: Download repo content from artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: full-workspace
       - name: Check Terminus version
         run: terminus --version
       - name: Install plugin
