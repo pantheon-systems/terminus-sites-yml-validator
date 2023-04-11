@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Pantheon\TerminusYmlValidator\Validator;
 
 use Exception;
@@ -10,9 +9,9 @@ class SitesApiVersionTest extends TestCase
 {
     /**
      * Tests our sites.yml validator method.
-     * 
+     *
      * @dataProvider apiVersionTestValues
-     * 
+     *
      */
     public function testApiVersion($input, $expectedException, $exceptionErrorMessage = null): void
     {

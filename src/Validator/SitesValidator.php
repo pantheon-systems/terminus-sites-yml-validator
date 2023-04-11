@@ -12,7 +12,7 @@ const VALID_MULTIDEV_NAME_REGEX = '/^[a-z0-9\-]{1,11}$/';
 
 class SitesValidator extends Validator
 {
-    public function Validate(array $sites): void
+    public function validate(array $sites): void
     {
         if (! array_key_exists("api_version", $sites)) {
             throw new Exception("API version missing.");
@@ -25,7 +25,7 @@ class SitesValidator extends Validator
         $this->ValidateDomainMaps($sites["domain_maps"]);
     }
 
-    private function ValidateAPIVersion(int $apiVersion): void
+    private function validateAPIVersion(int $apiVersion): void
     {
         // Make this more robust once we have a second API version.
         if ($apiVersion === 1) {
@@ -34,7 +34,7 @@ class SitesValidator extends Validator
         throw new Exception("Invalid API version.");
     }
 
-    private function ValidateDomainMaps(array $domainMaps): void
+    private function validateDomainMaps(array $domainMaps): void
     {
         foreach ($domainMaps as $env => $domainMap) {
             if (!preg_match(VALID_MULTIDEV_NAME_REGEX, $env)) {
@@ -49,6 +49,7 @@ class SitesValidator extends Validator
                 );
             }
             foreach ($domainMap as $blog_key => $domain) {
+                var_dump($blog_key);
                 if (!is_int($blog_key)) {
                     throw new Exception(sprintf('key "%s" is not an integer.', $blog_key));
                 }

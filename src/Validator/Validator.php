@@ -9,7 +9,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class Validator
 {
-    public function ValidateFromFilePath(string $filePath): void
+    public function validateFromFilePath(string $filePath): void
     {
         $yFile = file_get_contents($filePath);
         if ($yFile === false) {
@@ -18,7 +18,7 @@ class Validator
         $this->validateFromYaml($yFile);
     }
 
-    public function ValidateFromYaml(string $y): void
+    public function validateFromYaml(string $y): void
     {
         $s = Yaml::parse($y);
         $this->validate($s);
