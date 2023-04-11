@@ -5,29 +5,13 @@ declare(strict_types=1);
 namespace Pantheon\TerminusYmlValidator\Validator;
 
 use Exception;
-use Symfony\Component\Yaml\Yaml;
 
 const MAX_DOMAIN_MAPS = 25;
 const VALID_HOSTNAME_REGEX = '/^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]))*$/';
 const VALID_MULTIDEV_NAME_REGEX = '/^[a-z0-9\-]{1,11}$/';
 
-class SitesValidator
+class SitesValidator extends Validator
 {
-    public function ValidateFromFilePath(string $filePath): void
-    {
-        $yFile = file_get_contents($filePath);
-        if ($yFile === false) {
-            throw new Exception("Error reading YAML file: $filePath");
-        }
-        $this->validateFromYaml($yFile);
-    }
-
-    public function ValidateFromYaml(string $y): void
-    {
-        $s = Yaml::parse($y);
-        $this->validate($s);
-    }
-
     public function Validate(array $sites): void
     {
         if (! array_key_exists("api_version", $sites)) {
